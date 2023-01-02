@@ -37,13 +37,13 @@ impl NotifytManager {
         return &self.observers;
     }
 
-    pub fn notify(&mut self, msg: &Message) -> bool {
-        for observer in self.observers.iter() {
-            let mut observer = observer.lock().unwrap();
-            observer.message_received(msg);
-        }
-        true
-    }
+    // pub fn notify(&mut self, msg: &Message) -> bool {
+    //     for observer in self.observers.iter() {
+    //         let mut observer = observer.lock().unwrap();
+    //         observer.message_received(msg);
+    //     }
+    //     true
+    // }
 
     pub fn num_observers(&mut self) -> usize {
         self.observers.len()

@@ -24,3 +24,4 @@ pub trait Observer {
 }
 
 pub type ObserverObject = Arc<Mutex<dyn Observer + Send>>;
+// pub type ObserverObject = Observer;
