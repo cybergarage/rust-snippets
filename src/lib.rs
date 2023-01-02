@@ -13,4 +13,3 @@
 // limitations under the License.
 
 pub mod notify_manager;
-pub mod observer;
