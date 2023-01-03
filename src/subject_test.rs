@@ -20,17 +20,17 @@ use std::sync::Mutex;
 use crate::protocol::Message;
 use crate::transport::Observer;
 
-pub struct TestNotifyCounter {
+pub struct TestSubjectCounter {
     pub counter: Arc<Mutex<i32>>,
 }
 
-impl TestNotifyCounter {
-    pub fn new(counter: Arc<Mutex<i32>>) -> TestNotifyCounter {
-        TestNotifyCounter { counter: counter }
+impl TestSubjectCounter {
+    pub fn new(counter: Arc<Mutex<i32>>) -> TestSubjectCounter {
+        TestSubjectCounter { counter: counter }
     }
 }
 
-impl Observer for TestNotifyCounter {
+impl Observer for TestSubjectCounter {
     fn message_received(&mut self, _msg: &Message) {
         let mut counter = self.counter.lock().unwrap();
         *counter += 1;
@@ -48,7 +48,7 @@ mod tests {
     fn notify_manager_add() {
         const TEST_OBSERVER_COUNT: i32 = 10;
         let counter = Arc::new(Mutex::new(0));
-        let observer = TestNotifyCounter::new(counter.clone());
+        let observer = TestSubjectCounter::new(counter.clone());
         let observer = Arc::new(Mutex::new(observer));
         let mut mgr = NotifytManager::new();
         assert!(mgr.start());
@@ -67,7 +67,7 @@ mod tests {
         assert!(mgr.start());
 
         for _ in 0..TEST_OBSERVER_COUNT {
-            let observer = TestNotifyCounter::new(counter.clone());
+            let observer = TestSubjectCounter::new(counter.clone());
             assert!(mgr.add_observer(Arc::new(Mutex::new(observer))));
         }
 

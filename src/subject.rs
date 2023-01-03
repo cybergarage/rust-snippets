@@ -12,13 +12,13 @@ pub type ObserverObject = Arc<Mutex<dyn Observer + Send>>;
 // pub type ObserverObject = Observer;
 pub type Observers = Vec<ObserverObject>;
 
-pub struct NotifytManager {
+pub struct Subject {
     observers: Observers,
 }
 
-impl NotifytManager {
-    pub fn new() -> NotifytManager {
-        NotifytManager {
+impl Subject {
+    pub fn new() -> Subject {
+        Subject {
             observers: Vec::new(),
         }
     }
