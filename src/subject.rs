@@ -2,10 +2,10 @@ use std::string::String;
 use std::sync::Arc;
 use std::sync::Mutex;
 
-pub type Message = String;
+pub type Event = String;
 
 pub trait Observer {
-    fn message_received(&mut self, msg: &Message);
+    fn event_received(&mut self, e: &Event);
 }
 
 pub type ObserverObject = Arc<Mutex<dyn Observer + Send>>;
@@ -26,10 +26,10 @@ impl Subject {
         self.observers.push(observer);
     }
 
-    pub fn notify(&mut self, msg: &Message) {
+    pub fn notify(&mut self, e: &Event) {
         for observer in self.observers.iter() {
             let mut observer = observer.lock().unwrap();
-            observer.message_received(msg);
+            observer.event_received(e);
         }
     }
 }
